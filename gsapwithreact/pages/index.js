@@ -1,8 +1,102 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
+import { gsap } from "gsap"
+import { useEffect, useRef } from 'react'
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'
+// import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+
+
+// gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 export default function Home() {
+  const titleContainer = useRef()
+
+  // const appear = (element, delay, duration) => {
+  //   gsap.fromTo(
+  //     element,
+  //     {
+  //       opacity: 0
+  //     },
+  //     {
+  //       opacity: 1,
+  //       delay: 0.7 || delay,
+  //       duration: 0.5 || duration,
+  //     }
+  //   )
+  // }
+
+  const onLoad = () => {
+    gsap.timeline()
+      // .fromTo('#letter',
+      //   {
+      //     opacity: 0
+      //   },
+      //   {
+      //     opacity: 1,
+      //     stagger: 0.33,
+      //     delay: 1.2,
+      //   }
+      // )
+      .to(lineTitleSeparator,
+        {
+          width: "15vw",
+          delay: 0.5 || delay,
+          duration: 1 || duration
+        }
+      )
+      .fromTo('#letter',
+        {
+          y: 19,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          delay: 0.5 || delay,
+          duration: 1 || duration
+        }
+      )
+      .to('#letter',
+        {
+          margin: "0 0.4vw",
+          duration: 0.5 || duration
+        }
+      )
+      .to('#letter',
+        {
+          margin: "0 0.2vw",
+          delay: 0.1 || delay,
+          duration: 0.5 || duration
+        }
+      )
+      .to(lineTitleSeparator,
+        {
+          y: -48,
+          delay: 0.5 || delay,
+          duration: 0.5 || duration
+        }
+      )
+      .to('#letter',
+        {
+          y:-19,
+          opacity: 0,
+          duration: 0.5 || duration
+        }, "<"
+      )
+      .to(lineTitleSeparator,
+        {
+          width: "0vw",
+          delay: 0.5 || delay,
+          duration: 1 || duration
+        }
+      )
+  }
+
+  useEffect(() => {
+    //appear(titleContainer.current)
+    onLoad()
+  })
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,58 +106,22 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        {/* <svg className={styles.circle_loader_container}>
+          <circle cx='25px' cy='25px' r='10px' className={styles.circle_loader}/>
+        </svg> */}
+        <div className={styles.title_container} ref={titleContainer}>
+          <span id='letter'>B</span>
+          <span id='letter'>I</span>
+          <span id='letter'>E</span>
+          <span id='letter'>N</span>
+          <span id='letter'>V</span>
+          <span id='letter'>E</span>
+          <span id='letter'>N</span>
+          <span id='letter'>U</span>
+          <span id='letter'>E</span>
         </div>
+        <div className={styles.line_title_separator} id='lineTitleSeparator' />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
